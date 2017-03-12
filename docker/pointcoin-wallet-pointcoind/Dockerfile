@@ -31,9 +31,11 @@ RUN curl -L -o /tmp/$POINTCOIND_FILE $POINTCOIND_URL && \
 ADD . /tmp/docker_build
 RUN chmod +x /tmp/docker_build/prepare.sh && \
     chmod +x /tmp/docker_build/pointcoind.runit.sh && \
+    chmod +x /tmp/docker_build/notification.sh && \
     sh tmp/docker_build/prepare.sh && \
     ls -alF /home/pointcoin/ && \
     cp /tmp/docker_build/pointcoin.conf /home/pointcoin/.pointcoind/ && \
+    cp /tmp/docker_build/notification.sh /home/pointcoin/.pointcoind/ && \
     mkdir /etc/service/pointcoind && \
     cp /tmp/docker_build/pointcoind.runit.sh /etc/service/pointcoind/run && \
     rm -rf /tmp/* /var/tmp/*
