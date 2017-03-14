@@ -36,6 +36,7 @@ RUN chmod +x /tmp/docker_build/prepare.sh && \
     ls -alF /home/pointcoin/ && \
     cp /tmp/docker_build/pointcoin.conf /home/pointcoin/.pointcoind/ && \
     cp /tmp/docker_build/notification.sh /home/pointcoin/.pointcoind/ && \
+    cp /tmp/docker_build/pointcoin-log.conf /etc/logrotate.d/ && \
     mkdir /etc/service/pointcoind && \
     cp /tmp/docker_build/pointcoind.runit.sh /etc/service/pointcoind/run && \
     rm -rf /tmp/* /var/tmp/*

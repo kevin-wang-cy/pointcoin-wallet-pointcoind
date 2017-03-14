@@ -4,6 +4,9 @@
 FROM phusion/baseimage:0.9.19
 MAINTAINER Kevin C.Y. Wang <kevin.wang.cy@gmail.com>
 
+# Fix https://github.com/phusion/baseimage-docker/issues/338
+RUN sed -i 's/^su root syslog/su root adm/' /etc/logrotate.conf
+
 # Upgrade OS, Install OpenJDK 8 & bzip2
 RUN add-apt-repository ppa:openjdk-r/ppa -y && apt-get update -y && \
     apt-get install -y --no-install-recommends openjdk-8-jdk bzip2 libevent-dev && \
