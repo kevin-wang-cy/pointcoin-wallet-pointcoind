@@ -19,13 +19,15 @@ ENV WALLET_CONF=/home/pointcoin/.pointcoind/pointcoin.conf
 ENV WALLET_CONF_OPTS=
 
 # Install Pointcoind
-ARG POINTCOIND_FILE=pointcoind-1.0.2.0-xenial-amd64.tar
+ARG POINTCOIND_BIN=unxcoind
+ARG POINTCOIND_FILE=unxcoind-1.0.1-ubuntu1404-amd64.tar
 ARG POINTCOIND_URL=https://raw.githubusercontent.com/kevin-wang-cy/pointcoin-resource/master/poincoind/$POINTCOIND_FILE
 
 RUN curl -L -o /tmp/$POINTCOIND_FILE $POINTCOIND_URL && \
     tar -C /tmp -xvf /tmp/$POINTCOIND_FILE && \
-    chmod +x /tmp/pointcoind && \
-    cp /tmp/pointcoind /usr/local/bin/pointcoind && \
+    chmod +x /tmp/$POINTCOIND_BIN && \
+    cp /tmp/$POINTCOIND_BIN /usr/local/bin/$POINTCOIND_BIN && \
+    ln -s /usr/local/bin/$POINTCOIND_BIN /usr/local/bin/pointcoind && \
     rm -rf /tmp/* /var/tmp/*
 
 ADD . /tmp/docker_build
