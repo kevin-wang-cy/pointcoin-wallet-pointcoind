@@ -1,4 +1,9 @@
 #!/bin/sh
+# create soft link for other wallet daemon binary at pointcoind
+if [ ! -e "/usr/local/bin/pointcoind" ]; then
+    ln -s /usr/local/bin/$WALLETD_BIN /usr/local/bin/pointcoind
+    echo "Linked /usr/local/bin/$WALLETD_BIN to /usr/local/bin/pointcoind."
+fi
 
 # create user pointcoin:pointcoin
 addgroup --gid 9999 pointcoin

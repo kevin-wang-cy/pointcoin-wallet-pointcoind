@@ -23,18 +23,19 @@ ARG POINTCOIND_BIN=unxcoind
 ARG POINTCOIND_FILE=unxcoind-1.0.1-ubuntu1404-amd64.tar
 ARG POINTCOIND_URL=https://raw.githubusercontent.com/kevin-wang-cy/pointcoin-resource/master/poincoind/$POINTCOIND_FILE
 
+ENV WALLETD_BIN=$POINTCOIND_BIN
+
 RUN curl -L -o /tmp/$POINTCOIND_FILE $POINTCOIND_URL && \
     tar -C /tmp -xvf /tmp/$POINTCOIND_FILE && \
     chmod +x /tmp/$POINTCOIND_BIN && \
-    cp /tmp/$POINTCOIND_BIN /usr/local/bin/$POINTCOIND_BIN && \
-    ln -s /usr/local/bin/$POINTCOIND_BIN /usr/local/bin/pointcoind && \
+    cp /tmp/$POINTCOIND_BIN /usr/local/bin/$WALLETD_BIN && \
     rm -rf /tmp/* /var/tmp/*
 
 ADD . /tmp/docker_build
 RUN chmod +x /tmp/docker_build/prepare.sh && \
     chmod +x /tmp/docker_build/pointcoind.runit.sh && \
     chmod +x /tmp/docker_build/notification.sh && \
-    sh tmp/docker_build/prepare.sh && \
+    sh /tmp/docker_build/prepare.sh && \
     ls -alF /home/pointcoin/ && \
     cp /tmp/docker_build/pointcoin.conf /home/pointcoin/.pointcoind/ && \
     cp /tmp/docker_build/notification.sh /home/pointcoin/.pointcoind/ && \
