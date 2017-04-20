@@ -29,6 +29,7 @@ RUN curl -L -o /tmp/$POINTCOIND_FILE $POINTCOIND_URL && \
     tar -C /tmp -xvf /tmp/$POINTCOIND_FILE && \
     chmod +x /tmp/$POINTCOIND_BIN && \
     cp /tmp/$POINTCOIND_BIN /usr/local/bin/$WALLETD_BIN && \
+    ls -alF /tmp/ && \
     rm -rf /tmp/* /var/tmp/*
 
 ADD . /tmp/docker_build
