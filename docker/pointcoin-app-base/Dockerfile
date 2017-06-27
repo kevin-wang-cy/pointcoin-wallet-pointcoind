@@ -1,11 +1,8 @@
 # pointcoin-app-base image, should refer to  pointcoin-app-base-<version>
 # For example FROM kevinwangcy/upchain:pointcoin-app-base-latest
 
-FROM phusion/baseimage:0.9.19
+FROM phusion/baseimage:0.9.22
 MAINTAINER Kevin C.Y. Wang <kevin.wang.cy@gmail.com>
-
-# Fix https://github.com/phusion/baseimage-docker/issues/338
-RUN sed -i 's/^su root syslog/su root adm/' /etc/logrotate.conf
 
 # Upgrade OS, Install OpenJDK 8 & bzip2
 RUN add-apt-repository ppa:openjdk-r/ppa -y && apt-get update -y && \
