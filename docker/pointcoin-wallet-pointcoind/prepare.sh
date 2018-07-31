@@ -14,6 +14,7 @@ usermod -L pointcoin
 mkdir -p /home/pointcoin/.pointcoind
 chmod 700 /home/pointcoin/.pointcoind
 chown pointcoin:pointcoin /home/pointcoin/.pointcoind
+chmod +r /home/pointcoin/.pointcoind
 
 # mkdir /var/log/pointcoin
 mkdir -p /var/log/pointcoin

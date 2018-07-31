@@ -1,14 +1,14 @@
-# pointcoin-wallet-pointcoind image, should refer to  pointcoin-wallet-pointcoind-<version>
-# For example FROM kevinwangcy/upchain:pointcoin-wallet-pointcoind-latest
+# pointcoin-wallet-bitcoind image, should refer to  pointcoin-wallet-bitcoind-<version>
+# For example FROM kevinwangcy/upchain:pointcoin-wallet-bitcoind-latest
 # By default the wallet itself is not secured, you can secured it through encryptwallet rpc command.
 # And the rpc listens on 22888 and only grants access to pointcoinrpc with a password of 123456. 
 # Wallet data is kept under /wallet/$WALLET_ALIAS by default, it's recommanded to mount to /wallet from 
 # a data volue which contains all wallets' data.
 # Usage:
-# docker run --name wallet-default -p 8332:22888 -e WALLET_CONF_OPTS="-rpcallowip=192.168.0.2 -rpcallowip=192.168.0.7" kevinwangcy/upchain:pointcoin-wallet-pointcoind
+# docker run --name wallet-default -p 8332:22888 -e WALLET_CONF_OPTS="-rpcallowip=192.168.0.2 -rpcallowip=192.168.0.7" kevinwangcy/upchain:pointcoin-wallet-bitcoind-latest
 # docker volume create wallet-data-volume
-# docker run --name wallet-default -p 8332:22888 -e WALLET_ALIAS=default -v wallet-data-volume:/wallet kevinwangcy/upchain:pointcoin-wallet-pointcoind
-# docker run --name wallet-default -p 8332:22888 -e WALLET_ALIAS=default -v ~/wallet:/wallet kevinwangcy/upchain:pointcoin-wallet-pointcoind
+# docker run --name wallet-default -p 8332:22888 -e WALLET_ALIAS=default -v wallet-data-volume:/wallet kevinwangcy/upchain:pointcoin-wallet-bitcoind-latest
+# docker run --name wallet-default -p 8332:22888 -e WALLET_ALIAS=default -v ~/wallet:/wallet kevinwangcy/upchain:pointcoin-wallet-bitcoind-latest
 
 FROM kevinwangcy/upchain:pointcoin-wallet-base-latest
 MAINTAINER Kevin C.Y. Wang <kevin.wang.cy@gmail.com>
@@ -19,18 +19,15 @@ ENV WALLET_CONF=/home/pointcoin/.pointcoind/pointcoin.conf
 ENV WALLET_CONF_OPTS=
 
 # Install Pointcoind
-ARG POINTCOIND_BIN=unxcoind
-ARG POINTCOIND_FILE=unxcoind-1.0.1-ubuntu1404-amd64.tar
-ARG POINTCOIND_URL=https://raw.githubusercontent.com/kevin-wang-cy/pointcoin-resource/master/poincoind/$POINTCOIND_FILE
-
+ARG POINTCOIND_BIN=bitcoind
 ENV WALLETD_BIN=$POINTCOIND_BIN
 
-RUN curl -L -o /tmp/$POINTCOIND_FILE $POINTCOIND_URL && \
-    tar -C /tmp -xvf /tmp/$POINTCOIND_FILE && \
-    chmod +x /tmp/$POINTCOIND_BIN && \
-    cp /tmp/$POINTCOIND_BIN /usr/local/bin/$WALLETD_BIN && \
-    ls -alF /tmp/ && \
-    rm -rf /tmp/* /var/tmp/*
+
+# install bitcoind latest release version (user and gorup created: bitcoin:bitcoin)
+RUN add-apt-repository ppa:bitcoin/bitcoin -y && apt-get update -y && \
+    apt-get install --yes bitcoind && \
+    ln -s /usr/bin/bitcoind /usr/local/bin/pointcoind && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ADD . /tmp/docker_build
 RUN chmod +x /tmp/docker_build/prepare.sh && \
