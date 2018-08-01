@@ -1,14 +1,14 @@
-# pointcoin-wallet-bitcoind image, should refer to  pointcoin-wallet-bitcoind-<version>
-# For example FROM kevinwangcy/upchain:pointcoin-wallet-bitcoind-latest
+# bitcoin-wallet-pointcoind image, should refer to  bitcoin-wallet-pointcoind-<version>
+# For example FROM kevinwangcy/upchain:bitcoin-wallet-pointcoind-latest
 # By default the wallet itself is not secured, you can secured it through encryptwallet rpc command.
 # And the rpc listens on 22888 and only grants access to pointcoinrpc with a password of 123456. 
 # Wallet data is kept under /wallet/$WALLET_ALIAS by default, it's recommanded to mount to /wallet from 
 # a data volue which contains all wallets' data.
 # Usage:
-# docker run --name wallet-default -p 8332:22888 -e WALLET_CONF_OPTS="-rpcallowip=192.168.0.2 -rpcallowip=192.168.0.7" kevinwangcy/upchain:pointcoin-wallet-bitcoind-latest
+# docker run --name wallet-default -p 8332:22888 -e WALLET_CONF_OPTS="-rpcallowip=192.168.0.2 -rpcallowip=192.168.0.7" kevinwangcy/upchain:bitcoin-wallet-pointcoind-latest
 # docker volume create wallet-data-volume
-# docker run --name wallet-default -p 8332:22888 -e WALLET_ALIAS=default -v wallet-data-volume:/wallet kevinwangcy/upchain:pointcoin-wallet-bitcoind-latest
-# docker run --name wallet-default -p 8332:22888 -e WALLET_ALIAS=default -v ~/wallet:/wallet kevinwangcy/upchain:pointcoin-wallet-bitcoind-latest
+# docker run --name wallet-default -p 8332:22888 -e WALLET_ALIAS=default -v wallet-data-volume:/wallet kevinwangcy/upchain:bitcoin-wallet-pointcoind-latest
+# docker run --name wallet-default -p 8332:22888 -e WALLET_ALIAS=default -v ~/wallet:/wallet kevinwangcy/upchain:bitcoin-wallet-pointcoind-latest
 
 FROM kevinwangcy/upchain:pointcoin-wallet-base-latest
 MAINTAINER Kevin C.Y. Wang <kevin.wang.cy@gmail.com>
