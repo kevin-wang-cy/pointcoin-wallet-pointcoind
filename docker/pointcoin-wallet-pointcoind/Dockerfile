@@ -13,6 +13,9 @@
 FROM kevinwangcy/upchain:pointcoin-wallet-base-latest
 MAINTAINER Kevin C.Y. Wang <kevin.wang.cy@gmail.com>
 
+# wallet kind
+ENV WALLET_KIND=bitcion
+
 # wallet alias
 ENV WALLET_ALIAS=default
 ENV WALLET_CONF=/home/pointcoin/.pointcoind/pointcoin.conf
