@@ -14,7 +14,7 @@ FROM kevinwangcy/upchain:pointcoin-wallet-base-latest
 MAINTAINER Kevin C.Y. Wang <kevin.wang.cy@gmail.com>
 
 # wallet kind
-ENV WALLET_KIND=bitcion
+ENV WALLET_KIND=bitcoin
 
 # wallet alias
 ENV WALLET_ALIAS=default
